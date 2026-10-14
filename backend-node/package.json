@@ -1,0 +1,34 @@
+{
+  "name": "backend-node",
+  "version": "1.0.0",
+  "description": "Backend pentru aplicația de predicții Themeisle",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --exec npx tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:init": "npx tsx src/db/schema.ts",
+    "db:seed": "npx tsx src/db/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.6.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "nodemon": "^3.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
