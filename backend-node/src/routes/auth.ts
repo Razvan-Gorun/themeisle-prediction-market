@@ -20,7 +20,12 @@ router.post('/register', async (req, res) => {
   const result = db.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)').run(username, hashedPassword);
   const userId = result.lastInsertRowid;
 
-  res.cookie('userId', userId, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie('userId', userId, {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  });
   res.json({ success: true, userId });
 });
 
@@ -37,13 +42,21 @@ router.post('/login', async (req, res) => {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
 
-  res.cookie('userId', user.id, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie('userId', user.id, {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  });
   res.json({ success: true, userId: user.id });
 });
 
 // POST /auth/logout
 router.post('/logout', (req, res) => {
-  res.clearCookie('userId');
+  res.clearCookie('userId', {
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  });
   res.json({ success: true });
 });
 
