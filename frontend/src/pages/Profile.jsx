@@ -27,7 +27,7 @@ export default function Profile() {
   const fetchActive = async (offset) => {
     setLoadingActive(true);
     try {
-      const res = await fetch(`http://localhost:3000/profile/active?limit=${limit}&offset=${offset}`, {
+      const res = await fetch(`${__API_URL__}/profile/active?limit=${limit}&offset=${offset}`, {
         credentials: 'include'
       });
       const data = await res.json();
@@ -44,7 +44,7 @@ export default function Profile() {
   const fetchResolved = async (offset) => {
     setLoadingResolved(true);
     try {
-      const res = await fetch(`http://localhost:3000/profile/resolved?limit=${limit}&offset=${offset}`, {
+      const res = await fetch(`${__API_URL__}/profile/resolved?limit=${limit}&offset=${offset}`, {
         credentials: 'include'
       });
       const data = await res.json();

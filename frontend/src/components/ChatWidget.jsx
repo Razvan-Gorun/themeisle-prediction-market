@@ -28,7 +28,7 @@ export default function ChatWidget() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3000/chat', {
+      const res = await fetch(__API_URL__ + '/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -18,7 +18,7 @@ export default function MarketDetail() {
 
   const fetchMarket = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/markets/${id}`);
+      const res = await fetch(`${__API_URL__}/markets/${id}`);
       const data = await res.json();
       setMarket(data);
     } catch (error) {
@@ -49,7 +49,7 @@ export default function MarketDetail() {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/markets/${id}/bets`, {
+      const res = await fetch(`${__API_URL__}/markets/${id}/bets`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -75,7 +75,7 @@ export default function MarketDetail() {
     if (!winningOutcomeId) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/markets/${id}/resolve`, {
+      const res = await fetch(`${__API_URL__}/markets/${id}/resolve`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

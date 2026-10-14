@@ -11,7 +11,7 @@ export default function Leaderboard() {
     setLoading(true);
     try {
       // Modificare aici: folosim URL-ul complet
-      const res = await fetch(`http://localhost:3000/leaderboard?limit=${limit}&offset=${offset}`);
+      const res = await fetch(`${__API_URL__}/leaderboard?limit=${limit}&offset=${offset}`);
       const data = await res.json();
       setUsers(data.data);
       setTotal(data.total);

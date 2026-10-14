@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch('http://localhost:3000/auth/me', {
+        const res = await fetch(__API_URL__ + '/auth/me', {
           credentials: 'include'
         });
         const data = await res.json();
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (username, password) => {
-    const res = await fetch('http://localhost:3000/auth/login', {
+    const res = await fetch(__API_URL__ + '/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     });
     const data = await res.json();
     if (res.ok) {
-      const meRes = await fetch('http://localhost:3000/auth/me', { credentials: 'include' });
+      const meRes = await fetch(__API_URL__ + '/auth/me', { credentials: 'include' });
       const meData = await meRes.json();
       setUser(meData.user);
     }
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (username, password) => {
-    const res = await fetch('http://localhost:3000/auth/register', {
+    const res = await fetch(__API_URL__ + '/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     });
     const data = await res.json();
     if (res.ok) {
-      const meRes = await fetch('http://localhost:3000/auth/me', { credentials: 'include' });
+      const meRes = await fetch(__API_URL__ + '/auth/me', { credentials: 'include' });
       const meData = await meRes.json();
       setUser(meData.user);
     }
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch('http://localhost:3000/auth/logout', {
+    await fetch(__API_URL__ + '/auth/logout', {
       method: 'POST',
       credentials: 'include'
     });

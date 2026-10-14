@@ -18,7 +18,7 @@ export default function Dashboard() {
     const params = new URLSearchParams(filters);
     try {
       // Modificare aici: folosim URL-ul complet
-      const res = await fetch(`http://localhost:3000/markets?${params}`);
+      const res = await fetch(`${__API_URL__}/markets?${params}`);
       const data = await res.json();
       setMarkets(data.data);
       setTotal(data.total);
