@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.js';
 import profileRoutes from './routes/profile.js';
 import leaderboardRoutes from './routes/leaderboard.js';
 import chatRoutes from './routes/chat.js';
+import { runSeed } from './db/seed.js';
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
@@ -22,7 +23,6 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Permite cereri fără origin (curl, Postman, health checks)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
     callback(new Error(`CORS blocked: ${origin}`));
@@ -42,6 +42,15 @@ app.get('/', (_req, res) => {
   res.send('Backend is running');
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Backend running at http://localhost:${port}`);
-});
+// Pornire: întâi seed (dacă e nevoie), apoi listen
+(async () => {
+  try {
+    await runSeed();
+  } catch (err) {
+    console.error('⚠️ Eroare la seed (continuăm oricum):', err);
+  }
+
+  app.listen(port, () => {
+    console.log(`🚀 Backend running at http://localhost:${port}`);
+  });
+})();
