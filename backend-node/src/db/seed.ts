@@ -1,7 +1,7 @@
 import db from './database.js';
 import bcrypt from 'bcryptjs';
 
-async function seed() {
+export async function runSeed() {
   const userCount = (db.prepare('SELECT COUNT(*) as count FROM users').get() as { count: number }).count;
   if (userCount > 0) {
     console.log('📦 Baza de date are deja date. Se renunță la seed.');
@@ -50,4 +50,8 @@ async function seed() {
   console.log('🌱 Seed complet!');
 }
 
-seed().catch(console.error);
+// Rulează direct când fișierul e executat singur (npm run db:seed)
+const isMain = process.argv[1]?.includes('seed.ts') || process.argv[1]?.includes('seed.js');
+if (isMain) {
+  runSeed().catch(console.error);
+}
